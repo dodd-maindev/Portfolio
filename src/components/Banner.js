@@ -213,6 +213,7 @@ export const Banner = () => {
                   data-aos-delay="200"
                   data-aos-mirror="true"
                   data-aos-anchor-placement="center-bottom"
+                  style={{ minHeight: '150px' }}
                 >
                   Hi! I'm Meens <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Game Developer", "Software Engineer" ]'><span className="wrap">{text}</span></span>
                 </h1>

@@ -29,44 +29,123 @@ export const NavBar = () => {
   const smoothScrollTo = (targetId) => {
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
-      const targetPosition = targetElement.offsetTop;
+      // Tính toán chính xác chiều cao navbar
+      const navbar = document.querySelector('.navbar');
+      const navbarHeight = navbar ? navbar.offsetHeight : 80;
+      
+      // Offset thêm một chút để tránh bị che
+      const offset = 20;
+      const targetPosition = targetElement.offsetTop - navbarHeight - offset;
       const startPosition = window.pageYOffset;
       const distance = targetPosition - startPosition;
-      const duration = 1000; // 1 second duration
+      
+      // Nếu khoảng cách quá nhỏ thì không cần animation
+      if (Math.abs(distance) < 5) {
+        return;
+      }
+      
+      const duration = Math.min(2000, Math.max(800, Math.abs(distance) * 0.8)); // Duration tùy theo khoảng cách
       let start = null;
+      let animationId = null;
 
       const animation = (currentTime) => {
         if (start === null) start = currentTime;
         const timeElapsed = currentTime - start;
-        const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-        window.scrollTo(0, run);
-        if (timeElapsed < duration) requestAnimationFrame(animation);
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        // Sử dụng easing function mượt mà hơn
+        const easeInOutCubic = progress < 0.5 
+          ? 4 * progress * progress * progress 
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        
+        const currentPosition = startPosition + (distance * easeInOutCubic);
+        window.scrollTo(0, currentPosition);
+        
+        if (progress < 1) {
+          animationId = requestAnimationFrame(animation);
+        } else {
+          // Đảm bảo cuối cùng scroll đúng vị trí
+          window.scrollTo(0, targetPosition);
+        }
       };
 
-      // Easing function for smooth animation
-      const easeInOutQuad = (t, b, c, d) => {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-      };
-
-      requestAnimationFrame(animation);
+      // Hủy animation cũ nếu có
+      if (window.currentScrollAnimation) {
+        cancelAnimationFrame(window.currentScrollAnimation);
+      }
+      
+      animationId = requestAnimationFrame(animation);
+      window.currentScrollAnimation = animationId;
     }
   }
 
   const onUpdateActiveLink = (value, event) => {
-    event.preventDefault(); // Prevent default anchor link behavior
+    event.preventDefault();
     setActiveLink(value);
-    // Close mobile menu after click
     setExpanded(false);
-    // Smooth scroll to the target section
-    smoothScrollTo(value);
+    
+    // Delay nhỏ để navbar collapse hoàn thành
+    if (expanded) {
+      setTimeout(() => {
+        smoothScrollTo(value);
+      }, 150);
+    } else {
+      // Nếu navbar không mở thì scroll ngay
+      smoothScrollTo(value);
+    }
   }
 
   const handleToggle = () => {
     setExpanded(!expanded);
   }
+
+  // Cleanup khi component unmount
+  useEffect(() => {
+    return () => {
+      if (window.currentScrollAnimation) {
+        cancelAnimationFrame(window.currentScrollAnimation);
+      }
+    };
+  }, []);
+
+  // Thêm intersection observer để update active link khi scroll
+  useEffect(() => {
+    const sections = ['home', 'skills', 'projects'];
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -35% 0px', // Tùy chỉnh vùng trigger
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          if (sections.includes(sectionId)) {
+            setActiveLink(sectionId);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      sections.forEach((sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, []);
 
   const socialLinks = [
     { href: "https://github.com/dodao123", icon: navIcon1, alt: "GitHub" },
