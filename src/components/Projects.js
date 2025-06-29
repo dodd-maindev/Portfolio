@@ -86,7 +86,7 @@ export const Projects = () => {
       description: "A clean and informative website for the TSA exam, with easy navigation and clear exam preparation resources.",
       category: "Web Design & Development",
       imgUrl: projImg6,
-      githubUrl: "https://github.com/yourname/project6",
+      githubUrl: "http://tsatest.id.vn/",
     },
     {
       title: "Manga Reading Mobile APP",
