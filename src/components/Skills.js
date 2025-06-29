@@ -5,6 +5,7 @@ import meter2 from "../assets/img/meter2.svg";
 import meter3 from "../assets/img/meter3.svg";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import 'aos/dist/aos.css';
 import colorSharp from "../assets/img/color-sharp.png";
 
 export const Skills = () => {
@@ -131,17 +132,58 @@ Combines logic with creative design`
         <div className="row">
           <div className="col-12">
             <div className={`skill-bx wow zoomIn ${isVisible ? 'animate-in' : ''}`}>
-              <h2>Skills</h2>
-              <p>🔧 Technical Skills<br /></p>
-              <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
-                <div className="item skill-item-1" onClick={() => setSelectedSkill("Frontend")}>
+              <h2 
+                data-aos="fade-down"
+                data-aos-duration="800"
+                data-aos-delay="0"
+                data-aos-mirror="true"
+                data-aos-anchor-placement="center-bottom"
+              >
+                Skills
+              </h2>
+              <p 
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="200"
+                data-aos-mirror="true"
+                data-aos-anchor-placement="center-bottom"
+              >
+                🔧 Technical Skills<br />
+              </p>
+              <Carousel 
+                responsive={responsive} 
+                infinite={true} 
+                className="owl-carousel owl-theme skill-slider"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-delay="400"
+                data-aos-mirror="true"
+                data-aos-anchor-placement="center-bottom"
+              >
+                <div 
+                  className="item skill-item-1" 
+                  onClick={() => setSelectedSkill("Frontend")}
+                  data-aos="zoom-in"
+                  data-aos-duration="600"
+                  data-aos-delay="100"
+                  data-aos-mirror="true"
+                  data-aos-anchor-placement="center-bottom"
+                >
                   <div className="skill-icon-wrapper">
                     <img src={meter1} alt="Frontend" />
                     <div className="skill-glow"></div>
                   </div>
                   <h5>Frontend</h5>
                 </div>
-                <div className="item skill-item-2" onClick={() => setSelectedSkill("Backend")}>
+                <div 
+                  className="item skill-item-2" 
+                  onClick={() => setSelectedSkill("Backend")}
+                  data-aos="zoom-in"
+                  data-aos-duration="600"
+                  data-aos-delay="200"
+                  data-aos-mirror="true"
+                  data-aos-anchor-placement="center-bottom"
+                >
                   <div className="skill-icon-wrapper">
                     <img src={meter2} alt="Backend" />
                     <div className="skill-glow"></div>

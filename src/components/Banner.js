@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import headerImg from "../assets/img/header-img.svg";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
+import 'aos/dist/aos.css'; // Import CSS của AOS
 import TrackVisibility from 'react-on-screen';
 
 export const Banner = () => {
@@ -81,26 +82,86 @@ export const Banner = () => {
       {/* Space Decorations - Banner Only */}
       <div className="banner-space-decorations">
         {/* Stars */}
-        <div className="banner-star banner-star-1">⭐</div>
-        <div className="banner-star banner-star-2">✨</div>
-        <div className="banner-star banner-star-3">⭐</div>
-        <div className="banner-star banner-star-4">✨</div>
-        <div className="banner-star banner-star-5">⭐</div>
-        <div className="banner-star banner-star-6">✨</div>
+        <div 
+          className="banner-star banner-star-1"
+          data-aos="zoom-in"
+          data-aos-duration="600"
+          data-aos-delay="100"
+        >⭐</div>
+        <div 
+          className="banner-star banner-star-2"
+          data-aos="zoom-in"
+          data-aos-duration="600"
+          data-aos-delay="200"
+        >✨</div>
+        <div 
+          className="banner-star banner-star-3"
+          data-aos="zoom-in"
+          data-aos-duration="600"
+          data-aos-delay="300"
+        >⭐</div>
+        <div 
+          className="banner-star banner-star-4"
+          data-aos="zoom-in"
+          data-aos-duration="600"
+          data-aos-delay="400"
+        >✨</div>
+        <div 
+          className="banner-star banner-star-5"
+          data-aos="zoom-in"
+          data-aos-duration="600"
+          data-aos-delay="500"
+        >⭐</div>
+        <div 
+          className="banner-star banner-star-6"
+          data-aos="zoom-in"
+          data-aos-duration="600"
+          data-aos-delay="600"
+        >✨</div>
         
         {/* Planets */}
-        <div className="banner-planet banner-planet-1">🪐</div>
-        <div className="banner-planet banner-planet-2">🌍</div>
-        <div className="banner-planet banner-planet-3">🌙</div>
+        <div 
+          className="banner-planet banner-planet-1"
+          data-aos="fade-down"
+          data-aos-duration="1000"
+          data-aos-delay="800"
+        >🪐</div>
+        <div 
+          className="banner-planet banner-planet-2"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-delay="1000"
+        >🌍</div>
+        <div 
+          className="banner-planet banner-planet-3"
+          data-aos="fade-down"
+          data-aos-duration="1000"
+          data-aos-delay="1200"
+        >🌙</div>
         
         {/* Rockets */}
-        <div className="banner-rocket banner-rocket-1">
+        <div 
+          className="banner-rocket banner-rocket-1"
+          data-aos="flip-left"
+          data-aos-duration="1000"
+          data-aos-delay="1400"
+        >
           <div className="banner-rocket-spin">🚀</div>
         </div>
-        <div className="banner-rocket banner-rocket-2">🛸</div>
+        <div 
+          className="banner-rocket banner-rocket-2"
+          data-aos="flip-right"
+          data-aos-duration="1000"
+          data-aos-delay="1600"
+        >🛸</div>
         
         {/* Satellites */}
-        <div className="banner-satellite banner-satellite-1">🛰️</div>
+        <div 
+          className="banner-satellite banner-satellite-1"
+          data-aos="rotate-in"
+          data-aos-duration="1200"
+          data-aos-delay="1800"
+        >🛰️</div>
         
         {/* Comets */}
 
@@ -136,25 +197,67 @@ export const Banner = () => {
             <TrackVisibility>
               {({ isVisible }) =>
               <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <span className="tagline">Welcome to my Portfolio</span>
-                <h1>Hi! I'm Meens <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Game Developer", "Software Engineer" ]'><span className="wrap">{text}</span></span></h1>
-                  <p>Hi, My name is <span className="text-purple-400 font-semibold">Đào Đức Độ (MEENS) </span>, I’m a passionate <span className="text-purple-400 font-semibold">Web Developer, Game Developer, and Software Engineer</span> with a strong foundation in full-stack development, game mechanics, and backend systems. I enjoy turning ideas into real-world applications that are both functional and engaging.
+                <span 
+                  className="tagline"
+                  data-aos="fade-down"
+                  data-aos-duration="800"
+                  data-aos-delay="0"
+                  data-aos-mirror="true"
+                  data-aos-anchor-placement="center-bottom"
+                >
+                  Welcome to my Portfolio
+                </span>
+                <h1 
+                  data-aos="fade-right"
+                  data-aos-duration="1000"
+                  data-aos-delay="200"
+                  data-aos-mirror="true"
+                  data-aos-anchor-placement="center-bottom"
+                >
+                  Hi! I'm Meens <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Game Developer", "Software Engineer" ]'><span className="wrap">{text}</span></span>
+                </h1>
+                  <p 
+                    data-aos="fade-up"
+                    data-aos-duration="1200"
+                    data-aos-delay="400"
+                    data-aos-mirror="true"
+                    data-aos-anchor-placement="center-bottom"
+                  >Hi, My name is <span className="text-purple-400 font-semibold">Đào Đức Độ (MEENS) </span>, I’m a passionate <span className="text-purple-400 font-semibold">Web Developer, Game Developer, and Software Engineer</span> with a strong foundation in full-stack development, game mechanics, and backend systems. I enjoy turning ideas into real-world applications that are both functional and engaging.
 
 As a Web Developer, I specialize in crafting dynamic and user-friendly web applications using technologies like React, Node.js, SQL, Mongoose, and tools like Docker and Postman. I’m experienced in building responsive frontends, robust APIs, and scalable databases.
 
 In the world of Game Development, I bring stories to life with Unity, leveraging C# and integrating with Python when needed for AI or external logic. I enjoy building both gameplay mechanics and technical systems that enhance the player's experience.
 
 As a Software Engineer, I thrive on solving complex problems, optimizing performance, and designing systems that are maintainable and efficient. I'm always eager to learn, explore new technologies, and build meaningful products.</p>
-                  <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button>
-              </div>}
+              <button 
+                onClick={() => {
+                  document.getElementById("connect")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                data-aos="zoom-in"
+                data-aos-duration="800"
+                data-aos-delay="600"
+                data-aos-mirror="true"
+                data-aos-anchor-placement="center-bottom"
+              >
+                Let's Connect <ArrowRightCircle size={25} />
+              </button>
+            </div>}
             </TrackVisibility>
           </Col>
           <Col xs={0} md={6} xl={5} className="d-none d-md-block">
   <TrackVisibility>
     {({ isVisible }) =>
       <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-        <img src={headerImg} alt="Header Img" />
-      </div>}
+  <img 
+    src={headerImg} 
+    alt="Header Img"
+    data-aos="fade-left"
+    data-aos-duration="1000"
+    data-aos-delay="800"
+    data-aos-mirror="true"
+    data-aos-anchor-placement="center-bottom"
+  />
+</div>}
   </TrackVisibility>
 </Col>
 

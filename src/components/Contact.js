@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import 'animate.css';
+import 'aos/dist/aos.css';
 import TrackVisibility from 'react-on-screen';
 import emailjs from '@emailjs/browser';
 
@@ -56,10 +57,10 @@ export const Contact = () => {
     // Replace the fetch call with EmailJS service
     try {
       const response = await emailjs.send(
-        'service_btrkn1o', // Your EmailJS service ID
-        'template_w1oybui', // Your EmailJS template ID
+        'service_v1k23ut', // Your EmailJS service ID
+        'template_t36ao3t', // Your EmailJS template ID
         formDetails,   // Form details to send in the email
-        '0qMc2ihvMqSv_0S-Z'      // Your EmailJS user ID
+        '_y_J5ZneU9jYLve49'      // Your EmailJS user ID
       );
 
       if (response.status === 200) {
@@ -80,7 +81,14 @@ export const Contact = () => {
       {/* Cosmic Background Elements */}
       <div className="cosmic-background-contact">
         {/* Floating Stars */}
-        <div className="stars-contact">
+        <div 
+          className="stars-contact"
+          data-aos="fade-in"
+          data-aos-duration="2000"
+          data-aos-delay="0"
+          data-aos-mirror="true"
+          data-aos-anchor-placement="top-bottom"
+        >
           {[...Array(35)].map((_, i) => (
             <div 
               key={i} 
@@ -95,19 +103,62 @@ export const Contact = () => {
         </div>
         
         {/* Cosmic Nebula */}
-        <div className="nebula-contact nebula-contact-1"></div>
-        <div className="nebula-contact nebula-contact-2"></div>
+        <div 
+          className="nebula-contact nebula-contact-1"
+          data-aos="fade-right"
+          data-aos-duration="1500"
+          data-aos-delay="300"
+          data-aos-mirror="true"
+        ></div>
+        <div 
+          className="nebula-contact nebula-contact-2"
+          data-aos="fade-left"
+          data-aos-duration="1500"
+          data-aos-delay="500"
+          data-aos-mirror="true"
+        ></div>
         
         {/* Floating Cosmic Objects */}
         <div className="cosmic-objects-contact">
-          <div className="cosmic-object-contact obj-contact-1">📧</div>
-          <div className="cosmic-object-contact obj-contact-2">🌟</div>
-          <div className="cosmic-object-contact obj-contact-3">💫</div>
-          <div className="cosmic-object-contact obj-contact-4">🚀</div>
+          <div 
+            className="cosmic-object-contact obj-contact-1"
+            data-aos="bounce-in"
+            data-aos-duration="800"
+            data-aos-delay="200"
+            data-aos-mirror="true"
+          >📧</div>
+          <div 
+            className="cosmic-object-contact obj-contact-2"
+            data-aos="bounce-in"
+            data-aos-duration="800"
+            data-aos-delay="400"
+            data-aos-mirror="true"
+          >🌟</div>
+          <div 
+            className="cosmic-object-contact obj-contact-3"
+            data-aos="bounce-in"
+            data-aos-duration="800"
+            data-aos-delay="600"
+            data-aos-mirror="true"
+          >💫</div>
+          <div 
+            className="cosmic-object-contact obj-contact-4"
+            data-aos="bounce-in"
+            data-aos-duration="800"
+            data-aos-delay="800"
+            data-aos-mirror="true"
+          >🚀</div>
         </div>
         
         {/* Communication Waves */}
-        <div className="comm-waves">
+        <div 
+          className="comm-waves"
+          data-aos="zoom-out"
+          data-aos-duration="1000"
+          data-aos-delay="700"
+          data-aos-mirror="true"
+          data-aos-anchor-placement="center-bottom"
+        >
           <div className="wave wave-1"></div>
           <div className="wave wave-2"></div>
           <div className="wave wave-3"></div>
@@ -119,7 +170,14 @@ export const Contact = () => {
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) =>
-                <div className={`contact-image-container ${isVisible ? "animate__animated animate__zoomIn" : ""}`}>
+                <div 
+                  className={`contact-image-container ${isVisible ? "animate__animated animate__zoomIn" : ""}`}
+                  data-aos="fade-right"
+                  data-aos-duration="1000"
+                  data-aos-delay="100"
+                  data-aos-mirror="true"
+                  data-aos-anchor-placement="center-bottom"
+                >
                   <img src={contactImg} alt="Contact Us"/>
                   <div className="image-glow"></div>
                 </div>
@@ -130,16 +188,39 @@ export const Contact = () => {
             <TrackVisibility>
               {({ isVisible }) =>
                 <div className={`contact-form-container ${isVisible ? "animate__animated animate__fadeIn" : ""}`}>
-                  <h2 className="contact-title">
+                  <h2 
+                    className="contact-title"
+                    data-aos="fade-down"
+                    data-aos-duration="1000"
+                    data-aos-delay="0"
+                    data-aos-mirror="true"
+                    data-aos-anchor-placement="center-bottom"
+                  >
                     <span className="title-icon">📡</span>
                     Get In Touch
                   </h2>
-                  <p className="contact-subtitle">Ready to launch your next project? Let's connect across the cosmos!</p>
+                  <p 
+                    className="contact-subtitle"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
+                    data-aos-delay="200"
+                    data-aos-mirror="true"
+                    data-aos-anchor-placement="center-bottom"
+                  >
+                    Ready to launch your next project? Let's connect across the cosmos!
+                  </p>
                   
                   <form onSubmit={handleSubmit} className="cosmic-form">
                     <Row>
                       <Col size={12} sm={6} className="px-1">
-                        <div className="input-wrapper">
+                        <div 
+                          className="input-wrapper"
+                          data-aos="fade-right"
+                          data-aos-duration="600"
+                          data-aos-delay="400"
+                          data-aos-mirror="true"
+                          data-aos-anchor-placement="center-bottom"
+                        >
                           <input 
                             type="text" 
                             value={formDetails.firstName} 
@@ -151,7 +232,14 @@ export const Contact = () => {
                         </div>
                       </Col>
                       <Col size={12} sm={6} className="px-1">
-                        <div className="input-wrapper">
+                        <div 
+                          className="input-wrapper"
+                          data-aos="fade-left"
+                          data-aos-duration="600"
+                          data-aos-delay="500"
+                          data-aos-mirror="true"
+                          data-aos-anchor-placement="center-bottom"
+                        >
                           <input 
                             type="text" 
                             value={formDetails.lastName} 
@@ -163,7 +251,14 @@ export const Contact = () => {
                         </div>
                       </Col>
                       <Col size={12} sm={6} className="px-1">
-                        <div className="input-wrapper">
+                        <div 
+                          className="input-wrapper"
+                          data-aos="fade-right"
+                          data-aos-duration="600"
+                          data-aos-delay="600"
+                          data-aos-mirror="true"
+                          data-aos-anchor-placement="center-bottom"
+                        >
                           <input 
                             type="email" 
                             value={formDetails.email} 
@@ -175,7 +270,14 @@ export const Contact = () => {
                         </div>
                       </Col>
                       <Col size={12} sm={6} className="px-1">
-                        <div className="input-wrapper">
+                        <div 
+                          className="input-wrapper"
+                          data-aos="fade-left"
+                          data-aos-duration="600"
+                          data-aos-delay="700"
+                          data-aos-mirror="true"
+                          data-aos-anchor-placement="center-bottom"
+                        >
                           <input 
                             type="tel" 
                             value={formDetails.phone} 
@@ -187,7 +289,14 @@ export const Contact = () => {
                         </div>
                       </Col>
                       <Col size={12} className="px-1">
-                        <div className="input-wrapper">
+                        <div 
+                          className="input-wrapper"
+                          data-aos="fade-up"
+                          data-aos-duration="600"
+                          data-aos-delay="800"
+                          data-aos-mirror="true"
+                          data-aos-anchor-placement="center-bottom"
+                        >
                           <textarea 
                             rows="6" 
                             value={formDetails.message} 
@@ -197,7 +306,15 @@ export const Contact = () => {
                           ></textarea>
                           <div className="input-glow"></div>
                         </div>
-                        <button type="submit" className="cosmic-submit-btn">
+                        <button 
+                          type="submit" 
+                          className="cosmic-submit-btn"
+                          data-aos="zoom-in"
+                          data-aos-duration="600"
+                          data-aos-delay="900"
+                          data-aos-mirror="true"
+                          data-aos-anchor-placement="center-bottom"
+                        >
                           <span className="btn-icon">🚀</span>
                           <span className="btn-text">{buttonText}</span>
                           <div className="btn-particles"></div>

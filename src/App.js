@@ -10,38 +10,80 @@ import {Model3d} from "./components/Model3d";
 import { SolarSystem } from './components/SolarSystem';
 import { useState, useEffect, useRef } from 'react';
 import backgroundMusic from './assets/PastLives-Dots-7036039.mp3';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [showPlayPrompt, setShowPlayPrompt] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
   const audioRef = useRef(null);
 
+  // Initialize AOS
   useEffect(() => {
-    // Auto-play music when component mounts
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: false,
+      mirror: true,
+      offset: 100,
+      delay: 0
+    });
+  }, []);
+
+  useEffect(() => {
     const audioElement = audioRef.current;
     
-    const playMusic = async () => {
+    const tryAutoPlay = async () => {
       try {
         if (audioElement) {
-          audioElement.volume = 0.3; // Set volume to 30%
+          audioElement.volume = 0.3;
+          // Thử phát nhạc ngay lập tức
           await audioElement.play();
           setIsPlaying(true);
+          setUserInteracted(true);
         }
       } catch (error) {
-        console.log("Auto-play prevented by browser:", error);
-        // Auto-play was prevented, user needs to interact first
+        console.log("Auto-play prevented, waiting for user interaction:", error);
+        // Hiển thị prompt để user click
+        setShowPlayPrompt(true);
       }
     };
 
-    playMusic();
+    // Thử phát nhạc ngay khi component mount
+    tryAutoPlay();
 
-    // Cleanup function
+    // Listener cho user interaction đầu tiên
+    const handleFirstInteraction = async () => {
+      if (!userInteracted && audioElement) {
+        try {
+          await audioElement.play();
+          setIsPlaying(true);
+          setUserInteracted(true);
+          setShowPlayPrompt(false);
+        } catch (error) {
+          console.log("Could not play audio:", error);
+        }
+      }
+    };
+
+    // Thêm listeners cho các sự kiện user interaction
+    const events = ['click', 'touchstart', 'keydown', 'scroll'];
+    events.forEach(event => {
+      document.addEventListener(event, handleFirstInteraction, { once: true });
+    });
+
+    // Cleanup
     return () => {
       if (audioElement) {
         audioElement.pause();
       }
+      events.forEach(event => {
+        document.removeEventListener(event, handleFirstInteraction);
+      });
     };
-  }, []);
+  }, [userInteracted]);
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -49,8 +91,13 @@ function App() {
         audioRef.current.pause();
         setIsPlaying(false);
       } else {
-        audioRef.current.play();
-        setIsPlaying(true);
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+          setUserInteracted(true);
+          setShowPlayPrompt(false);
+        }).catch(error => {
+          console.log("Could not play audio:", error);
+        });
       }
     }
   };
@@ -62,6 +109,18 @@ function App() {
     }
   };
 
+  const handlePlayPromptClick = () => {
+    if (audioRef.current) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setUserInteracted(true);
+        setShowPlayPrompt(false);
+      }).catch(error => {
+        console.log("Could not play audio:", error);
+      });
+    }
+  };
+
   return (
     <div className="App">
       {/* Background Music */}
@@ -69,6 +128,7 @@ function App() {
         ref={audioRef}
         loop
         preload="auto"
+        muted={isMuted}
         onEnded={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
@@ -76,6 +136,27 @@ function App() {
         <source src={backgroundMusic} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
+
+      {/* Play Prompt Modal */}
+      {showPlayPrompt && (
+        <div className="play-prompt-overlay">
+          <div className="play-prompt">
+            <div className="play-prompt-content">
+              <h3>🎵 Welcome!</h3>
+              <p>Click to enable background music for better experience</p>
+              <button className="play-prompt-btn" onClick={handlePlayPromptClick}>
+                ▶️ Play Music
+              </button>
+              <button 
+                className="play-prompt-btn secondary" 
+                onClick={() => setShowPlayPrompt(false)}
+              >
+                Continue without music
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Music Controls */}
       <div className="music-controls">
@@ -140,6 +221,87 @@ function App() {
           transform: translateY(0);
         }
 
+        /* Play Prompt Styles */
+        .play-prompt-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(10px);
+          z-index: 9999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: fadeIn 0.5s ease;
+        }
+
+        .play-prompt {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(138, 43, 226, 0.2) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 20px;
+          padding: 2rem;
+          text-align: center;
+          backdrop-filter: blur(20px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+          max-width: 400px;
+          margin: 0 20px;
+        }
+
+        .play-prompt-content h3 {
+          color: white;
+          margin-bottom: 1rem;
+          font-size: 1.5rem;
+        }
+
+        .play-prompt-content p {
+          color: rgba(255, 255, 255, 0.8);
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
+        .play-prompt-btn {
+          background: linear-gradient(135deg, rgba(138, 43, 226, 0.8) 0%, rgba(218, 112, 214, 0.8) 100%);
+          border: none;
+          border-radius: 25px;
+          padding: 12px 24px;
+          color: white;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin: 0 5px 10px;
+          display: inline-block;
+          min-width: 140px;
+        }
+
+        .play-prompt-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(138, 43, 226, 0.4);
+        }
+
+        .play-prompt-btn.secondary {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        .play-prompt-btn.secondary:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
         /* Mobile responsive */
         @media (max-width: 768px) {
           .music-controls {
@@ -151,6 +313,20 @@ function App() {
             width: 45px;
             height: 45px;
             font-size: 16px;
+          }
+
+          .play-prompt {
+            padding: 1.5rem;
+            margin: 0 15px;
+          }
+
+          .play-prompt-content h3 {
+            font-size: 1.3rem;
+          }
+
+          .play-prompt-btn {
+            width: 100%;
+            margin: 5px 0;
           }
         }
       `}</style>

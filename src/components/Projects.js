@@ -9,6 +9,7 @@ import projImg6 from "../assets/img/project-img2.jpg";
 import projImg7 from "../assets/img/project-img5.png"; 
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import 'animate.css';
+import 'aos/dist/aos.css';
 import TrackVisibility from 'react-on-screen';
 
 
@@ -156,11 +157,35 @@ export const Projects = () => {
             <TrackVisibility>
               {({ isVisible }) => (
                 <div className={`projects-container ${isVisible ? "animate__animated animate__fadeIn" : ""}`}>
-                  <h2 className="projects-title">🚀 Projects</h2>
-                  <p className="projects-subtitle">Explore my cosmic journey through code and creativity</p>
+                  <h2 
+                    className="projects-title"
+                    data-aos="fade-down"
+                    data-aos-duration="1000"
+                    data-aos-delay="0"
+                    data-aos-mirror="true"
+                  >
+                    🚀 Projects
+                  </h2>
+                  <p 
+                    className="projects-subtitle"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="200"
+                    data-aos-mirror="true"
+                  >
+                    Explore my cosmic journey through code and creativity
+                  </p>
                   
                   <Tab.Container id="projects-tabs" defaultActiveKey="first">
-                    <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center cosmic-nav" id="pills-tab">
+                    <Nav 
+                      variant="pills" 
+                      className="nav-pills mb-5 justify-content-center align-items-center cosmic-nav" 
+                      id="pills-tab"
+                      data-aos="zoom-in"
+                      data-aos-duration="800"
+                      data-aos-delay="400"
+                      data-aos-mirror="true"
+                    >
                       <Nav.Item>
                         <Nav.Link eventKey="first" className="cosmic-tab">
                           <span className="tab-icon">🎮</span>
