@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import logo from '../assets/img/logo.svg';
+import logo from '../assets/img/logo.webp';
 import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon2.svg';
 import navIcon3 from '../assets/img/nav-icon3.svg';
-import { HashLink } from 'react-router-hash-link';
 import {
   BrowserRouter as Router
 } from "react-router-dom";
@@ -50,13 +49,13 @@ export const NavBar = () => {
             </Nav>
             <span className="navbar-text">
               <div className="social-icon">
-                <a href="https://github.com/dodao123"><img src={navIcon1} alt="" /></a>
-                <a href="https://www.facebook.com/oao.305534"><img src={navIcon2} alt="" /></a>
-                <a href="https://www.instagram.com/dok.dao/"><img src={navIcon3} alt="" /></a>
+                <a href="https://github.com/dodao123"><img src={navIcon1} alt="" className="white-icon"/></a>
+                <a href="https://www.facebook.com/oao.305534"><img src={navIcon2} alt="" className="white-icon"/></a>
+                <a href="https://www.instagram.com/dok.dao/"><img src={navIcon3} alt="" className="white-icon"/></a>
               </div>
-              <HashLink to='#connect'>
+              <a href="https://www.facebook.com/oao.305534">
                 <button className="vvd"><span>Let’s Connect</span></button>
-              </HashLink>
+              </a>
             </span>
           </Navbar.Collapse>
         </Container>

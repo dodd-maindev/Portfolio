@@ -70,6 +70,16 @@ export function Model3d() {
     alignItems: "center"
   };
 
+  const blackOverlayStyle = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  backgroundColor: "rgba(0, 0, 0, 0.6)", // Độ mờ lớp phủ
+  zIndex: 0,
+};
+
   // Style cho model container
   const modelContainerStyle = {
     width: "900px",
@@ -105,52 +115,56 @@ export function Model3d() {
   }
 
   return (
-    <div style={fullWidthContainerStyle}>
-      <div style={modelContainerStyle}>
-        <ErrorBoundary onError={(error) => {
-          console.error("ErrorBoundary caught:", error);
-          setHasError(true);
-        }}>
-          <Suspense fallback={
-            <div style={{ 
-              width: "100%", 
-              height: "100%", 
-              display: "flex", 
-              justifyContent: "center", 
-              alignItems: "center",
-              background: "rgba(0, 0, 0, 0.5)",
-              color: "#fff",
-              fontSize: "18px",
-              fontWeight: "bold"
-            }}>
-              Đang tải mô hình 3D...
-            </div>
-          }>
-            <Canvas 
-              camera={{ position: [5, 2, 5], fov: 45 }}
-              style={{ background: "transparent" }}
-            >
-              <ambientLight intensity={0.7} />
-              <pointLight position={[10, 10, 10]} intensity={1.5} />
-              <directionalLight position={[-5, 5, 5]} intensity={0.5} />
-              
-              <Suspense fallback={<LoadingFallback />}>
-                <Model />
-                <OrbitControls 
-                  enableZoom={true}
-                  enablePan={true}
-                  enableRotate={true}
-                  zoomSpeed={0.6}
-                  panSpeed={0.5}
-                  rotateSpeed={0.6}
-                />
-              </Suspense>
-            </Canvas>
-          </Suspense>
-        </ErrorBoundary>
-      </div>
+  <div style={fullWidthContainerStyle}>
+    {/* ✅ Lớp phủ đen */}
+    <div style={blackOverlayStyle}></div>
+
+    {/* ✅ Container chứa mô hình 3D */}
+    <div style={{ ...modelContainerStyle, zIndex: 1 }}>
+      <ErrorBoundary onError={(error) => {
+        console.error("ErrorBoundary caught:", error);
+        setHasError(true);
+      }}>
+        <Suspense fallback={
+          <div style={{ 
+            width: "100%", 
+            height: "100%", 
+            display: "flex", 
+            justifyContent: "center", 
+            alignItems: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+            color: "#fff",
+            fontSize: "18px",
+            fontWeight: "bold"
+          }}>
+            Đang tải mô hình 3D...
+          </div>
+        }>
+          <Canvas 
+            camera={{ position: [5, 2, 5], fov: 45 }}
+            style={{ background: "transparent" }}
+          >
+            <ambientLight intensity={0.7} />
+            <pointLight position={[10, 10, 10]} intensity={1.5} />
+            <directionalLight position={[-5, 5, 5]} intensity={0.5} />
+            
+            <Suspense fallback={<LoadingFallback />}>
+              <Model />
+              <OrbitControls 
+                enableZoom={true}
+                enablePan={true}
+                enableRotate={true}
+                zoomSpeed={0.6}
+                panSpeed={0.5}
+                rotateSpeed={0.6}
+              />
+            </Suspense>
+          </Canvas>
+        </Suspense>
+      </ErrorBoundary>
     </div>
-  );
+  </div>
+);
 }
 
 // Error boundary component
