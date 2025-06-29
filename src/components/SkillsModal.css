@@ -1,0 +1,65 @@
+.skill-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInModalBg 0.3s;
+}
+
+@keyframes fadeInModalBg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.skill-modal {
+  background: #181828;
+  color: #fff;
+  border-radius: 18px;
+  min-width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  padding: 32px 24px 24px 24px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(-60px);
+  transition: transform 0.35s cubic-bezier(.4,1.6,.6,1), opacity 0.35s cubic-bezier(.4,1.6,.6,1);
+}
+
+.skill-modal.modal-slide-down {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.modal-close-btn:hover {
+  color: #c084fc;
+}
+
+.skill-modal h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.skill-modal pre {
+  white-space: pre-wrap;
+  font-size: 1rem;
+  margin: 0;
+  color: #b8b8b8;
+  font-family: inherit;
+}

@@ -26,10 +26,42 @@ export const NavBar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [])
 
-  const onUpdateActiveLink = (value) => {
+  const smoothScrollTo = (targetId) => {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      const targetPosition = targetElement.offsetTop;
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+      const duration = 1000; // 1 second duration
+      let start = null;
+
+      const animation = (currentTime) => {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      };
+
+      // Easing function for smooth animation
+      const easeInOutQuad = (t, b, c, d) => {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+      };
+
+      requestAnimationFrame(animation);
+    }
+  }
+
+  const onUpdateActiveLink = (value, event) => {
+    event.preventDefault(); // Prevent default anchor link behavior
     setActiveLink(value);
-    // Đóng menu mobile sau khi click
+    // Close mobile menu after click
     setExpanded(false);
+    // Smooth scroll to the target section
+    smoothScrollTo(value);
   }
 
   const handleToggle = () => {
@@ -81,7 +113,7 @@ export const NavBar = () => {
                   key={item.key}
                   href={item.href}
                   className={activeLink === item.key ? 'active navbar-link' : 'navbar-link'}
-                  onClick={() => onUpdateActiveLink(item.key)}
+                  onClick={(e) => onUpdateActiveLink(item.key, e)}
                 >
                   {item.text}
                 </Nav.Link>

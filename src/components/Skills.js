@@ -77,6 +77,17 @@ Self-driven learner
 Combines logic with creative design`
   };
 
+  // Hàm xử lý click với animation cuộn
+  const handleSkillClick = (skillName) => {
+    if (selectedSkill === skillName) {
+      // Nếu đang hiển thị skill này, thì ẩn đi (cuộn lên)
+      setSelectedSkill(null);
+    } else {
+      // Hiển thị skill mới (cuộn xuống)
+      setSelectedSkill(skillName);
+    }
+  };
+
   return (
     <section className="skill" id="skills">
       {/* Cosmic Background Elements */}
@@ -162,7 +173,7 @@ Combines logic with creative design`
               >
                 <div 
                   className="item skill-item-1" 
-                  onClick={() => setSelectedSkill("Frontend")}
+                  onClick={() => handleSkillClick("Frontend")}
                   data-aos="zoom-in"
                   data-aos-duration="600"
                   data-aos-delay="100"
@@ -177,7 +188,7 @@ Combines logic with creative design`
                 </div>
                 <div 
                   className="item skill-item-2" 
-                  onClick={() => setSelectedSkill("Backend")}
+                  onClick={() => handleSkillClick("Backend")}
                   data-aos="zoom-in"
                   data-aos-duration="600"
                   data-aos-delay="200"
@@ -190,21 +201,21 @@ Combines logic with creative design`
                   </div>
                   <h5>Backend</h5>
                 </div>
-                <div className="item skill-item-3" onClick={() => setSelectedSkill("Database")}>
+                <div className="item skill-item-3" onClick={() => handleSkillClick("Database")}>
                   <div className="skill-icon-wrapper">
                     <img src={meter3} alt="Database" />
                     <div className="skill-glow"></div>
                   </div>
                   <h5>Database</h5>
                 </div>
-                <div className="item skill-item-4" onClick={() => setSelectedSkill("Game Development")}>
+                <div className="item skill-item-4" onClick={() => handleSkillClick("Game Development")}>
                   <div className="skill-icon-wrapper">
                     <img src={meter1} alt="Game Dev" />
                     <div className="skill-glow"></div>
                   </div>
                   <h5>Game Development</h5>
                 </div>
-                <div className="item skill-item-5" onClick={() => setSelectedSkill("Soft Skills")}>
+                <div className="item skill-item-5" onClick={() => handleSkillClick("Soft Skills")}>
                   <div className="skill-icon-wrapper">
                     <img src={meter2} alt="Soft Skills" />
                     <div className="skill-glow"></div>
@@ -213,12 +224,17 @@ Combines logic with creative design`
                 </div>
               </Carousel>
 
-              {selectedSkill && (
-                <div className={`skill-detail-box ${selectedSkill ? 'show-detail' : ''}`}>
-                  <h3>{selectedSkill} Details</h3>
-                  <pre>{skillDetails[selectedSkill]}</pre>
+              {/* Skill Detail Box với Animation */}
+              <div className={`skill-detail-container ${selectedSkill ? 'expanded' : 'collapsed'}`}>
+                <div className="skill-detail-box">
+                  {selectedSkill && (
+                    <>
+                      <h3>{selectedSkill} Details</h3>
+                      <pre>{skillDetails[selectedSkill]}</pre>
+                    </>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
@@ -235,6 +251,78 @@ Combines logic with creative design`
           opacity:0.9
         }
 
+        .skill-detail-container {
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+          }
+
+          .skill-detail-container.expanded {
+            max-height: 500px;
+          }
+
+          .skill-detail-container.collapsed {
+            max-height: 0;
+          }
+
+          .skill-detail-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            
+            /* Animation cuộn xuống từ trên */
+            transform: translateY(-100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.4s ease;
+          }
+
+          .skill-detail-container.expanded .skill-detail-box {
+            /* Cuộn xuống - hiện ra */
+            transform: translateY(0);
+            opacity: 1;
+          }
+
+          .skill-detail-container.collapsed .skill-detail-box {
+            /* Cuộn lên - ẩn đi */
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+
+          .skill-detail-box h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s ease 0.2s, opacity 0.4s ease 0.2s;
+          }
+
+          .skill-detail-container.expanded .skill-detail-box h3 {
+            transform: translateY(0);
+            opacity: 1;
+          }
+
+          .skill-detail-box pre {
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s ease 0.3s, opacity 0.4s ease 0.3s;
+          }
+
+          .skill-detail-container.expanded .skill-detail-box pre {
+            transform: translateY(0);
+            opacity: 1;
+          }
+            
         /* Cosmic Background Elements */
         .cosmic-background {
           position: absolute;
