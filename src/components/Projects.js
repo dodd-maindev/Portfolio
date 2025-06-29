@@ -7,6 +7,7 @@ import projImg4 from "../assets/img/project-img4.png";
 import projImg5 from "../assets/img/project-img1.jpg";
 import projImg6 from "../assets/img/project-img2.jpg";
 import projImg7 from "../assets/img/project-img5.png"; 
+import projImg8 from "../assets/img/project-img6.png";
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import 'animate.css';
 import 'aos/dist/aos.css';
@@ -95,6 +96,14 @@ export const Projects = () => {
       imgUrl: projImg7,
       videoUrl: "/ProjectVideo/video5.mp4",
       githubUrl: "https://github.com/dodao123/MangaReaderApp",
+    },
+    {
+      title: "Watch Film Website",
+      description: "A website for watching films online, with features like a search bar, a list of films, and a detailed film page.",
+      category: "Web Design & Development",
+      imgUrl: projImg8,
+      videoUrl: "",
+      githubUrl: "https://movietrailerbydodao.vercel.app/#",
     }
   ];
 
