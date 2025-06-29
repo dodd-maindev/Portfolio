@@ -78,29 +78,29 @@ export const Banner = () => {
 
   return (
     <section className="banner" id="home">
-      {/* Space Decorations */}
-      <div className="space-decorations">
+      {/* Space Decorations - Banner Only */}
+      <div className="banner-space-decorations">
         {/* Stars */}
-        <div className="star star-1">⭐</div>
-        <div className="star star-2">✨</div>
-        <div className="star star-3">⭐</div>
-        <div className="star star-4">✨</div>
-        <div className="star star-5">⭐</div>
-        <div className="star star-6">✨</div>
+        <div className="banner-star banner-star-1">⭐</div>
+        <div className="banner-star banner-star-2">✨</div>
+        <div className="banner-star banner-star-3">⭐</div>
+        <div className="banner-star banner-star-4">✨</div>
+        <div className="banner-star banner-star-5">⭐</div>
+        <div className="banner-star banner-star-6">✨</div>
         
         {/* Planets */}
-        <div className="planet planet-1">🪐</div>
-        <div className="planet planet-2">🌍</div>
-        <div className="planet planet-3">🌙</div>
+        <div className="banner-planet banner-planet-1">🪐</div>
+        <div className="banner-planet banner-planet-2">🌍</div>
+        <div className="banner-planet banner-planet-3">🌙</div>
         
         {/* Rockets */}
-        <div className="rocket rocket-1">
-          <div className="rocket-spin">🚀</div>
+        <div className="banner-rocket banner-rocket-1">
+          <div className="banner-rocket-spin">🚀</div>
         </div>
-        <div className="rocket rocket-2">🛸</div>
+        <div className="banner-rocket banner-rocket-2">🛸</div>
         
         {/* Satellites */}
-        <div className="satellite satellite-1">🛰️</div>
+        <div className="banner-satellite banner-satellite-1">🛰️</div>
         
         {/* Comets */}
 
@@ -365,8 +365,8 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
           }
         }
 
-        /* Space Decorations */
-        .space-decorations {
+        /* Banner Space Decorations - Isolated */
+        .banner-space-decorations {
           position: absolute;
           top: 0;
           left: 0;
@@ -374,68 +374,69 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
           height: 100%;
           pointer-events: none;
           z-index: 1;
+          overflow: hidden;
         }
 
-        /* Stars Animation */
-        .star {
+        /* Banner Stars Animation */
+        .banner-star {
           position: absolute;
           font-size: 16px;
-          animation: twinkle 3s ease-in-out infinite alternate;
+          animation: banner-twinkle 3s ease-in-out infinite alternate;
           color: #fff;
         }
 
-        .star-1 { top: 10%; left: 10%; animation-delay: 0s; }
-        .star-2 { top: 15%; right: 15%; animation-delay: 0.5s; }
-        .star-3 { top: 60%; left: 5%; animation-delay: 1s; }
-        .star-4 { top: 70%; right: 10%; animation-delay: 1.5s; }
-        .star-5 { top: 40%; left: 80%; animation-delay: 2s; }
-        .star-6 { top: 80%; right: 30%; animation-delay: 2.5s; }
+        .banner-star-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .banner-star-2 { top: 15%; right: 15%; animation-delay: 0.5s; }
+        .banner-star-3 { top: 60%; left: 5%; animation-delay: 1s; }
+        .banner-star-4 { top: 70%; right: 10%; animation-delay: 1.5s; }
+        .banner-star-5 { top: 40%; left: 80%; animation-delay: 2s; }
+        .banner-star-6 { top: 80%; right: 30%; animation-delay: 2.5s; }
 
-        @keyframes twinkle {
+        @keyframes banner-twinkle {
           0% { opacity: 0.3; transform: scale(0.8); }
           100% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* Planets Animation */
-        .planet {
+        /* Banner Planets Animation */
+        .banner-planet {
           position: absolute;
           font-size: 50px;
-          animation: float 6s ease-in-out infinite;
+          animation: banner-float 6s ease-in-out infinite;
         }
 
-        .planet-1 { top: 25%; right: 8%; animation-delay: 0s; }
-        .planet-2 { bottom: 25%; left: 2%; animation-delay: 2s; }
-        .planet-3 { top: 8%; left: 75%; animation-delay: 4s; }
+        .banner-planet-1 { top: 25%; right: 8%; animation-delay: 0s; }
+        .banner-planet-2 { bottom: 25%; left: 2%; animation-delay: 2s; }
+        .banner-planet-3 { top: 8%; left: 75%; animation-delay: 4s; }
 
-        @keyframes float {
+        @keyframes banner-float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-10px) rotate(5deg); }
         }
 
-        /* Rockets Animation */
-        .rocket {
+        /* Banner Rockets Animation */
+        .banner-rocket {
           position: absolute;
           font-size: 40px;
         }
 
-        .rocket-1 { 
+        .banner-rocket-1 { 
           bottom: 26%; 
           left: 3%;
-          animation: rocket-orbit-earth 15s linear infinite;
+          animation: banner-rocket-orbit-earth 15s linear infinite;
           transform-origin: 25px 25px;
         }
 
-        .rocket-spin {
-          animation: rocket-self-spin 8s linear infinite;
+        .banner-rocket-spin {
+          animation: banner-rocket-self-spin 8s linear infinite;
         }
 
-        .rocket-2 { 
+        .banner-rocket-2 { 
           bottom: 50%; 
           right: 90%;
-          animation: rocket-fly-2 1s linear infinite;
+          animation: banner-rocket-fly-2 1s linear infinite;
         }
 
-        @keyframes rocket-orbit-earth {
+        @keyframes banner-rocket-orbit-earth {
           0% { 
             transform: rotate(0deg) translateX(60px) rotate(90deg);
           }
@@ -453,7 +454,7 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
           }
         }
 
-        @keyframes rocket-fly-2 {
+        @keyframes banner-rocket-fly-2 {
           0% { 
             transform: translateX(20px) translateY(-10px) rotate(-45deg);
             opacity: 0;
@@ -466,7 +467,7 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
           }
         }
 
-        @keyframes rocket-self-spin {
+        @keyframes banner-rocket-self-spin {
           0% { 
             transform: rotate(0deg);
           }
@@ -475,30 +476,30 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
           }
         }
 
-        /* Satellite Animation */
-        .satellite {
+        /* Banner Satellite Animation */
+        .banner-satellite {
           position: absolute;
           font-size: 120px;
-          animation: orbit 5s linear infinite;
+          animation: banner-orbit 5s linear infinite;
           top: 5%; 
           right: 30%;
           transform-origin: 200px 0px;
         }
 
-        @keyframes orbit {
+        @keyframes banner-orbit {
           0% { transform: rotate(0deg) translateX(40px) rotate(0deg); }
           100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
         }
 
-        /* Comet Animation */
-        .comet {
+        /* Banner Comet Animation */
+        .banner-comet {
           position: absolute;
           font-size: 40px;
           top: 20%; 
-          animation: comet-streak 30s ease-in-out infinite;
+          animation: banner-comet-streak 30s ease-in-out infinite;
         }
 
-        @keyframes comet-streak {
+        @keyframes banner-comet-streak {
           0% { 
             right: -50px; 
             opacity: 0;
@@ -522,11 +523,11 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
         /* Responsive adjustments */
         @media (max-width: 768px) {
           .flying-plane { font-size: 20px; }
-          .star { font-size: 35px; }
-          .planet { font-size: 18px; }
-          .rocket { font-size: 16px; }
-          .satellite { font-size: 60px; }
-          .comet { font-size: 12px; }
+          .banner-star { font-size: 35px; }
+          .banner-planet { font-size: 18px; }
+          .banner-rocket { font-size: 16px; }
+          .banner-satellite { font-size: 60px; }
+          .banner-comet { font-size: 12px; }
           
           h1 {
             font-size: 45px;

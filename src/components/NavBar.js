@@ -9,9 +9,9 @@ import {
 } from "react-router-dom";
 
 export const NavBar = () => {
-
   const [activeLink, setActiveLink] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -29,34 +29,77 @@ export const NavBar = () => {
 
   const onUpdateActiveLink = (value) => {
     setActiveLink(value);
+    setExpanded(false); // Close mobile menu when link is clicked
+  }
+
+  const handleToggle = () => {
+    setExpanded(!expanded);
   }
 
   return (
     <Router>
-      <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
-        <Container>
-          <Navbar.Brand href="/">
+      <Navbar 
+        expand="lg" 
+        expanded={expanded}
+        className={scrolled ? "scrolled" : ""}
+        fixed="top"
+      >
+        <Container fluid className="px-3 px-md-4">
+          <Navbar.Brand href="/" className="d-flex align-items-center">
             <img src={logo} alt="Logo" className="logo"/>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav">
+          
+          <Navbar.Toggle 
+            aria-controls="basic-navbar-nav"
+            onClick={handleToggle}
+            className="border-0"
+          >
             <span className="navbar-toggler-icon"></span>
           </Navbar.Toggle>
+          
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <Nav.Link href="#home" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
-              <Nav.Link href="#skills" className={activeLink === 'skills' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('skills')}>Skills</Nav.Link>
-              <Nav.Link href="#projects" className={activeLink === 'projects' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('projects')}>Projects</Nav.Link>
+            <Nav className="mx-auto mb-2 mb-lg-0">
+              <Nav.Link 
+                href="#home" 
+                className={activeLink === 'home' ? 'active navbar-link mx-2' : 'navbar-link mx-2'} 
+                onClick={() => onUpdateActiveLink('home')}
+              >
+                Home
+              </Nav.Link>
+              <Nav.Link 
+                href="#skills" 
+                className={activeLink === 'skills' ? 'active navbar-link mx-2' : 'navbar-link mx-2'} 
+                onClick={() => onUpdateActiveLink('skills')}
+              >
+                Skills
+              </Nav.Link>
+              <Nav.Link 
+                href="#projects" 
+                className={activeLink === 'projects' ? 'active navbar-link mx-2' : 'navbar-link mx-2'} 
+                onClick={() => onUpdateActiveLink('projects')}
+              >
+                Projects
+              </Nav.Link>
             </Nav>
-            <span className="navbar-text">
-              <div className="social-icon">
-                <a href="https://github.com/dodao123"><img src={navIcon1} alt="" className="white-icon"/></a>
-                <a href="https://www.facebook.com/oao.305534"><img src={navIcon2} alt="" className="white-icon"/></a>
-                <a href="https://www.instagram.com/dok.dao/"><img src={navIcon3} alt="" className="white-icon"/></a>
+            
+            <div className="navbar-text d-flex flex-column flex-lg-row align-items-center">
+              <div className="social-icon d-flex justify-content-center mb-3 mb-lg-0 me-lg-3">
+                <a href="https://github.com/dodao123" className="me-2">
+                  <img src={navIcon1} alt="GitHub" className="white-icon"/>
+                </a>
+                <a href="https://www.facebook.com/oao.305534" className="me-2">
+                  <img src={navIcon2} alt="Facebook" className="white-icon"/>
+                </a>
+                <a href="https://www.instagram.com/dok.dao/">
+                  <img src={navIcon3} alt="Instagram" className="white-icon"/>
+                </a>
               </div>
-              <a href="https://www.facebook.com/oao.305534">
-                <button className="vvd"><span>Let’s Connect</span></button>
+              <a href="https://www.facebook.com/oao.305534" className="text-decoration-none">
+                <button className="vvd">
+                  <span>Let's Connect</span>
+                </button>
               </a>
-            </span>
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>

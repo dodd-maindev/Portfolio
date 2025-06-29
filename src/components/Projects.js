@@ -10,7 +10,7 @@ import projImg7 from "../assets/img/project-img5.png";
 import colorSharp2 from "../assets/img/color-sharp2.png";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
-import { ProjectCard } from "./ProjectCard"; // Điều chỉnh path nếu cần
+
 
 export const Projects = () => {
   const [showModal, setShowModal] = useState(false);

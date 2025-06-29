@@ -589,7 +589,7 @@ Combines logic with creative design`
         @media (max-width: 768px) {
           .skill {
             padding: 80px 0 30px 0;
-            margin-top: 30px;
+            margin-top: 0px;
           }
           
           .cosmic-orbit {
