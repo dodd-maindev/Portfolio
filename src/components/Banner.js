@@ -5,6 +5,7 @@ import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import 'aos/dist/aos.css'; // Import CSS của AOS
 import TrackVisibility from 'react-on-screen';
+import cvPDF from "../assets/DAo-DUC-DO-TopCV.vn-300625.164214.pdf";
 
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -232,7 +233,12 @@ In the world of Game Development, I bring stories to life with Unity, leveraging
 As a Software Engineer, I thrive on solving complex problems, optimizing performance, and designing systems that are maintainable and efficient. I'm always eager to learn, explore new technologies, and build meaningful products.</p>
               <button 
                 onClick={() => {
-                  document.getElementById("connect")?.scrollIntoView({ behavior: "smooth" });
+                  const link = document.createElement('a');
+                  link.href = cvPDF;
+                  link.download = 'Dao-Duc-Do-CV.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
                 }}
                 data-aos="zoom-in"
                 data-aos-duration="800"
@@ -240,7 +246,7 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
                 data-aos-mirror="true"
                 data-aos-anchor-placement="center-bottom"
               >
-                Let's Connect <ArrowRightCircle size={25} />
+                Download My CV <ArrowRightCircle size={25} />
               </button>
             </div>}
             </TrackVisibility>
@@ -537,7 +543,7 @@ As a Software Engineer, I thrive on solving complex problems, optimizing perform
         .banner-rocket-2 { 
           bottom: 50%; 
           right: 90%;
-          animation: banner-rocket-fly-2 1s linear infinite;
+          animation: banner-rocket-fly-2 5s linear infinite;
         }
 
         @keyframes banner-rocket-orbit-earth {
