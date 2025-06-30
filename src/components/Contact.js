@@ -19,6 +19,40 @@ export const Contact = () => {
   const [buttonText, setButtonText] = useState('Send');
   const [status, setStatus] = useState({});
   const [isVisible, setIsVisible] = useState(false);
+  const [randomPositions, setRandomPositions] = useState({
+    stars: [],
+    objects: [],
+    nebulas: []
+  });
+
+  // Generate random positions for cosmic elements
+  useEffect(() => {
+    // Generate random positions for stars
+    const stars = Array.from({ length: 35 }, () => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: Math.random() * 5,
+      size: 0.8 + Math.random() * 1.5
+    }));
+    
+    // Generate random positions for cosmic objects
+    const objects = Array.from({ length: 4 }, () => ({
+      left: `${Math.random() * 80 + 10}%`,
+      top: `${Math.random() * 80 + 10}%`,
+      scale: 0.8 + Math.random() * 0.6,
+      rotation: Math.random() * 360
+    }));
+    
+    // Generate random positions for nebulas
+    const nebulas = Array.from({ length: 2 }, () => ({
+      left: `${Math.random() * 80}%`,
+      top: `${Math.random() * 80}%`,
+      scale: 0.8 + Math.random() * 0.5,
+      opacity: 0.2 + Math.random() * 0.3
+    }));
+    
+    setRandomPositions({ stars, objects, nebulas });
+  }, []);
 
   // Intersection Observer for animations
   useEffect(() => {
@@ -89,65 +123,109 @@ export const Contact = () => {
           data-aos-mirror="true"
           data-aos-anchor-placement="top-bottom"
         >
-          {[...Array(35)].map((_, i) => (
+          {randomPositions.stars.map((star, i) => (
             <div 
               key={i} 
               className={`star-contact star-contact-${i % 4 + 1}`}
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`
+                left: star.left,
+                top: star.top,
+                animationDelay: `${star.delay}s`,
+                transform: `scale(${star.size})`,
+                opacity: 0.5 + Math.random() * 0.5
               }}
             ></div>
           ))}
         </div>
         
         {/* Cosmic Nebula */}
-        <div 
-          className="nebula-contact nebula-contact-1"
-          data-aos="fade-right"
-          data-aos-duration="1500"
-          data-aos-delay="300"
-          data-aos-mirror="true"
-        ></div>
-        <div 
-          className="nebula-contact nebula-contact-2"
-          data-aos="fade-left"
-          data-aos-duration="1500"
-          data-aos-delay="500"
-          data-aos-mirror="true"
-        ></div>
+        {randomPositions.nebulas.length > 0 && (
+          <>
+            <div 
+              className="nebula-contact nebula-contact-1"
+              data-aos="fade-in"
+              data-aos-duration="1500"
+              data-aos-delay="300"
+              data-aos-mirror="true"
+              style={{
+                left: randomPositions.nebulas[0]?.left,
+                top: randomPositions.nebulas[0]?.top,
+                transform: `scale(${randomPositions.nebulas[0]?.scale})`,
+                opacity: randomPositions.nebulas[0]?.opacity
+              }}
+            ></div>
+            {randomPositions.nebulas[1] && (
+              <div 
+                className="nebula-contact nebula-contact-2"
+                data-aos="fade-in"
+                data-aos-duration="1500"
+                data-aos-delay="500"
+                data-aos-mirror="true"
+                style={{
+                  right: randomPositions.nebulas[1]?.left,
+                  bottom: randomPositions.nebulas[1]?.top,
+                  transform: `scale(${randomPositions.nebulas[1]?.scale})`,
+                  opacity: randomPositions.nebulas[1]?.opacity
+                }}
+              ></div>
+            )}
+          </>
+        )}
         
         {/* Floating Cosmic Objects */}
         <div className="cosmic-objects-contact">
-          <div 
-            className="cosmic-object-contact obj-contact-1"
-            data-aos="bounce-in"
-            data-aos-duration="800"
-            data-aos-delay="200"
-            data-aos-mirror="true"
-          >📧</div>
-          <div 
-            className="cosmic-object-contact obj-contact-2"
-            data-aos="bounce-in"
-            data-aos-duration="800"
-            data-aos-delay="400"
-            data-aos-mirror="true"
-          >🌟</div>
-          <div 
-            className="cosmic-object-contact obj-contact-3"
-            data-aos="bounce-in"
-            data-aos-duration="800"
-            data-aos-delay="600"
-            data-aos-mirror="true"
-          >💫</div>
-          <div 
-            className="cosmic-object-contact obj-contact-4"
-            data-aos="bounce-in"
-            data-aos-duration="800"
-            data-aos-delay="800"
-            data-aos-mirror="true"
-          >🚀</div>
+          {randomPositions.objects.length > 0 && (
+            <>
+              <div 
+                className="cosmic-object-contact obj-contact-1"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="200"
+                data-aos-mirror="true"
+                style={{
+                  left: randomPositions.objects[0]?.left,
+                  top: randomPositions.objects[0]?.top,
+                  transform: `scale(${randomPositions.objects[0]?.scale}) rotate(${randomPositions.objects[0]?.rotation}deg)`
+                }}
+              >📧</div>
+              <div 
+                className="cosmic-object-contact obj-contact-2"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="400"
+                data-aos-mirror="true"
+                style={{
+                  left: randomPositions.objects[1]?.left,
+                  top: randomPositions.objects[1]?.top,
+                  transform: `scale(${randomPositions.objects[1]?.scale}) rotate(${randomPositions.objects[1]?.rotation}deg)`
+                }}
+              >🌟</div>
+              <div 
+                className="cosmic-object-contact obj-contact-3"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="600"
+                data-aos-mirror="true"
+                style={{
+                  left: randomPositions.objects[2]?.left,
+                  top: randomPositions.objects[2]?.top,
+                  transform: `scale(${randomPositions.objects[2]?.scale}) rotate(${randomPositions.objects[2]?.rotation}deg)`
+                }}
+              >💫</div>
+              <div 
+                className="cosmic-object-contact obj-contact-4"
+                data-aos="fade-in"
+                data-aos-duration="800"
+                data-aos-delay="800"
+                data-aos-mirror="true"
+                style={{
+                  left: randomPositions.objects[3]?.left,
+                  top: randomPositions.objects[3]?.top,
+                  transform: `scale(${randomPositions.objects[3]?.scale}) rotate(${randomPositions.objects[3]?.rotation}deg)`
+                }}
+              >🚀</div>
+            </>
+          )}
         </div>
         
         {/* Communication Waves */}
@@ -369,17 +447,136 @@ export const Contact = () => {
           position: absolute;
           background: white;
           border-radius: 50%;
-          animation: twinkle-contact 3s infinite ease-in-out alternate;
+          box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+          transition: all 0.5s ease;
         }
 
-        .star-contact-1 { width: 2px; height: 2px; }
-        .star-contact-2 { width: 3px; height: 3px; }
-        .star-contact-3 { width: 1.5px; height: 1.5px; }
-        .star-contact-4 { width: 4px; height: 4px; }
+        .star-contact-1 { 
+          width: 2px; 
+          height: 2px; 
+          animation: move-star-1 50s infinite linear;
+          opacity: 0.7;
+        }
+        
+        .star-contact-2 { 
+          width: 3px; 
+          height: 3px; 
+          animation: move-star-2 60s infinite linear;
+          opacity: 0.8;
+        }
+        
+        .star-contact-3 { 
+          width: 1.5px; 
+          height: 1.5px; 
+          animation: move-star-3 55s infinite linear;
+          opacity: 0.6;
+        }
+        
+        .star-contact-4 { 
+          width: 4px; 
+          height: 4px; 
+          animation: move-star-4 65s infinite linear;
+          opacity: 0.9;
+        }
 
-        @keyframes twinkle-contact {
-          0% { opacity: 0.3; transform: scale(1); }
-          100% { opacity: 1; transform: scale(1.3); }
+        @keyframes move-star-1 {
+          0% { 
+            transform: translate(0%, 0%) scale(0.8); 
+            opacity: 0.5;
+          }
+          25% { 
+            transform: translate(80%, 30%) scale(1.2); 
+            opacity: 1;
+          }
+          50% { 
+            transform: translate(50%, 80%) scale(0.9); 
+            opacity: 0.8;
+          }
+          75% { 
+            transform: translate(-30%, 40%) scale(1.1); 
+            opacity: 0.9;
+          }
+          100% { 
+            transform: translate(0%, 0%) scale(0.8); 
+            opacity: 0.5;
+          }
+        }
+        
+        @keyframes move-star-2 {
+          0% { 
+            transform: translate(0%, 0%) scale(1); 
+            opacity: 0.6;
+          }
+          20% { 
+            transform: translate(-60%, 50%) scale(1.4); 
+            opacity: 1;
+          }
+          40% { 
+            transform: translate(-40%, -60%) scale(0.8); 
+            opacity: 0.7;
+          }
+          60% { 
+            transform: translate(70%, -40%) scale(1.2); 
+            opacity: 0.9;
+          }
+          80% { 
+            transform: translate(50%, 70%) scale(1); 
+            opacity: 0.8;
+          }
+          100% { 
+            transform: translate(0%, 0%) scale(1); 
+            opacity: 0.6;
+          }
+        }
+        
+        @keyframes move-star-3 {
+          0% { 
+            transform: translate(0%, 0%) scale(0.9); 
+            opacity: 0.5;
+          }
+          25% { 
+            transform: translate(70%, -50%) scale(1.3); 
+            opacity: 1;
+          }
+          50% { 
+            transform: translate(-60%, -60%) scale(0.7); 
+            opacity: 0.6;
+          }
+          75% { 
+            transform: translate(-50%, 70%) scale(1.2); 
+            opacity: 0.9;
+          }
+          100% { 
+            transform: translate(0%, 0%) scale(0.9); 
+            opacity: 0.5;
+          }
+        }
+        
+        @keyframes move-star-4 {
+          0% { 
+            transform: translate(0%, 0%) scale(1.1); 
+            opacity: 0.7;
+          }
+          20% { 
+            transform: translate(-50%, -70%) scale(1.5); 
+            opacity: 1;
+          }
+          40% { 
+            transform: translate(60%, -50%) scale(0.9); 
+            opacity: 0.8;
+          }
+          60% { 
+            transform: translate(70%, 60%) scale(1.3); 
+            opacity: 0.9;
+          }
+          80% { 
+            transform: translate(-30%, 50%) scale(1); 
+            opacity: 0.7;
+          }
+          100% { 
+            transform: translate(0%, 0%) scale(1.1); 
+            opacity: 0.7;
+          }
         }
 
         /* Nebula Effects */
@@ -387,31 +584,44 @@ export const Contact = () => {
           position: absolute;
           border-radius: 50%;
           filter: blur(80px);
-          opacity: 0.2;
-          animation: float-nebula-contact 20s infinite ease-in-out;
+          opacity: 0.3;
+          transition: all 0.8s ease;
         }
 
         .nebula-contact-1 {
           width: 400px;
           height: 400px;
           background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
-          top: 20%;
-          left: -10%;
-          animation-delay: 0s;
+          position: absolute;
+          animation: float-nebula-contact-1 80s infinite ease-in-out;
+          z-index: 0;
         }
 
         .nebula-contact-2 {
           width: 300px;
           height: 300px;
           background: radial-gradient(circle, rgba(30, 144, 255, 0.3) 0%, transparent 70%);
-          bottom: 10%;
-          right: -5%;
-          animation-delay: 10s;
+          position: absolute;
+          animation: float-nebula-contact-2 90s infinite ease-in-out;
+          z-index: 0;
         }
 
-        @keyframes float-nebula-contact {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-50px) rotate(180deg); }
+        @keyframes float-nebula-contact-1 {
+          0% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.3; }
+          20% { transform: translate(30%, 30%) rotate(90deg) scale(1.2); opacity: 0.4; }
+          40% { transform: translate(80%, 40%) rotate(180deg) scale(0.9); opacity: 0.5; }
+          60% { transform: translate(60%, -30%) rotate(270deg) scale(1.1); opacity: 0.4; }
+          80% { transform: translate(20%, -50%) rotate(360deg) scale(1); opacity: 0.3; }
+          100% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.3; }
+        }
+        
+        @keyframes float-nebula-contact-2 {
+          0% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.3; }
+          20% { transform: translate(-30%, -30%) rotate(-90deg) scale(1.3); opacity: 0.4; }
+          40% { transform: translate(-70%, -20%) rotate(-180deg) scale(0.8); opacity: 0.5; }
+          60% { transform: translate(-40%, 40%) rotate(-270deg) scale(1.2); opacity: 0.4; }
+          80% { transform: translate(-10%, 70%) rotate(-360deg) scale(0.9); opacity: 0.3; }
+          100% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.3; }
         }
 
         /* Cosmic Objects */
@@ -426,18 +636,68 @@ export const Contact = () => {
         .cosmic-object-contact {
           position: absolute;
           font-size: 28px;
-          animation: float-cosmic-contact 10s infinite ease-in-out;
-          opacity: 0.6;
+          animation: float-cosmic-contact 15s infinite ease-in-out;
+          opacity: 0.8;
+          filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+          transition: all 0.5s ease;
         }
 
-        .obj-contact-1 { top: 20%; left: 10%; animation-delay: 0s; }
-        .obj-contact-2 { top: 70%; right: 20%; animation-delay: 3s; }
-        .obj-contact-3 { bottom: 30%; left: 80%; animation-delay: 6s; }
-        .obj-contact-4 { top: 40%; right: 10%; animation-delay: 9s; }
+        .obj-contact-1 { 
+          position: absolute;
+          animation: float-cosmic-contact-1 30s infinite ease-in-out;
+          z-index: 1;
+        }
+        
+        .obj-contact-2 { 
+          position: absolute;
+          animation: float-cosmic-contact-2 35s infinite ease-in-out;
+          z-index: 1;
+        }
+        
+        .obj-contact-3 { 
+          position: absolute;
+          animation: float-cosmic-contact-3 40s infinite ease-in-out alternate;
+          z-index: 1;
+        }
+        
+        .obj-contact-4 { 
+          position: absolute;
+          animation: float-cosmic-contact-4 45s infinite ease-in-out alternate;
+          z-index: 1;
+        }
 
-        @keyframes float-cosmic-contact {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(360deg); }
+        @keyframes float-cosmic-contact-1 {
+          0% { transform: translateY(0%) translateX(0%) rotate(0deg); }
+          20% { transform: translateY(-30%) translateX(40%) rotate(90deg); }
+          40% { transform: translateY(40%) translateX(70%) rotate(180deg); }
+          60% { transform: translateY(70%) translateX(20%) rotate(270deg); }
+          80% { transform: translateY(10%) translateX(-30%) rotate(360deg); }
+          100% { transform: translateY(0%) translateX(0%) rotate(0deg); }
+        }
+        
+        @keyframes float-cosmic-contact-2 {
+          0% { transform: translateY(0%) translateX(0%) rotate(0deg); }
+          20% { transform: translateY(50%) translateX(-40%) rotate(-90deg); }
+          40% { transform: translateY(-20%) translateX(-70%) rotate(-180deg); }
+          60% { transform: translateY(-60%) translateX(-30%) rotate(-270deg); }
+          80% { transform: translateY(-30%) translateX(20%) rotate(-360deg); }
+          100% { transform: translateY(0%) translateX(0%) rotate(0deg); }
+        }
+        
+        @keyframes float-cosmic-contact-3 {
+          0% { transform: translateY(0%) translateX(0%) scale(1) rotate(0deg); }
+          25% { transform: translateY(-60%) translateX(-50%) scale(1.1) rotate(120deg); }
+          50% { transform: translateY(30%) translateX(-80%) scale(0.9) rotate(240deg); }
+          75% { transform: translateY(70%) translateX(30%) scale(1.2) rotate(360deg); }
+          100% { transform: translateY(0%) translateX(0%) scale(1) rotate(0deg); }
+        }
+        
+        @keyframes float-cosmic-contact-4 {
+          0% { transform: translateY(0%) translateX(0%) scale(1) rotate(0deg); }
+          25% { transform: translateY(60%) translateX(60%) scale(1.2) rotate(-120deg); }
+          50% { transform: translateY(-40%) translateX(70%) scale(0.95) rotate(-240deg); }
+          75% { transform: translateY(-70%) translateX(-20%) scale(1.1) rotate(-360deg); }
+          100% { transform: translateY(0%) translateX(0%) scale(1) rotate(0deg); }
         }
 
         /* Communication Waves */
@@ -446,41 +706,80 @@ export const Contact = () => {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+          animation: comm-waves-float 8s infinite ease-in-out;
+        }
+
+        @keyframes comm-waves-float {
+          0% { transform: translate(-50%, -50%) rotate(0deg); }
+          25% { transform: translate(-48%, -52%) rotate(3deg); }
+          50% { transform: translate(-50%, -48%) rotate(0deg); }
+          75% { transform: translate(-52%, -50%) rotate(-3deg); }
+          100% { transform: translate(-50%, -50%) rotate(0deg); }
         }
 
         .wave {
           position: absolute;
-          border: 2px solid rgba(138, 43, 226, 0.3);
+          border: 2px solid rgba(138, 43, 226, 0.4);
           border-radius: 50%;
-          animation: wave-expand 4s infinite ease-out;
+          box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
         }
 
         .wave-1 {
           width: 100px;
           height: 100px;
-          animation-delay: 0s;
+          animation: wave-expand-1 5s infinite ease-out;
         }
 
         .wave-2 {
           width: 200px;
           height: 200px;
-          animation-delay: 1.3s;
+          animation: wave-expand-2 5s infinite ease-out;
+          animation-delay: 1.6s;
         }
 
         .wave-3 {
           width: 300px;
           height: 300px;
-          animation-delay: 2.6s;
+          animation: wave-expand-3 5s infinite ease-out;
+          animation-delay: 3.2s;
         }
 
-        @keyframes wave-expand {
+        @keyframes wave-expand-1 {
           0% {
-            transform: translate(-50%, -50%) scale(0);
+            transform: translate(-50%, -50%) scale(0) rotate(0deg);
             opacity: 1;
+            border-color: rgba(138, 43, 226, 0.6);
           }
           100% {
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1) rotate(20deg);
             opacity: 0;
+            border-color: rgba(138, 43, 226, 0.1);
+          }
+        }
+        
+        @keyframes wave-expand-2 {
+          0% {
+            transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            opacity: 1;
+            border-color: rgba(30, 144, 255, 0.6);
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(1) rotate(-15deg);
+            opacity: 0;
+            border-color: rgba(30, 144, 255, 0.1);
+          }
+        }
+        
+        @keyframes wave-expand-3 {
+          0% {
+            transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            opacity: 1;
+            border-color: rgba(170, 54, 124, 0.6);
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(1) rotate(10deg);
+            opacity: 0;
+            border-color: rgba(170, 54, 124, 0.1);
           }
         }
 

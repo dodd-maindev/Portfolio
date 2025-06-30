@@ -112,10 +112,10 @@ Combines logic with creative design`
           <div className="cosmic-planet planet-1">🪐</div>
         </div>
         <div className="cosmic-orbit orbit-2">
-          <div className="cosmic-planet planet-2">🌟</div>
+          <div className="cosmic-planet planet-2">🌘</div>
         </div>
         <div className="cosmic-orbit orbit-3">
-          <div className="cosmic-planet planet-3">🌙</div>
+          <div className="cosmic-planet planet-3">🌜</div>
         </div>
         
         {/* Shooting Stars */}
@@ -397,9 +397,9 @@ Combines logic with creative design`
         .cosmic-planet {
           position: absolute;
           top: -15px;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 30px;
+          left: 20%;
+          transform: translateX(-0%);
+          font-size: 50px;
           animation: counter-rotate 20s linear infinite reverse;
         }
 
