@@ -178,8 +178,8 @@ function App() {
 
       <Model3d />
       <NavBar />
-      <Banner />
       <SolarSystem />
+      <Banner />
       <Skills />
       <Projects />
       <Contact />
