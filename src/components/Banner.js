@@ -29,6 +29,7 @@ export const Banner = () => {
   useEffect(() => {
     const ticker = setInterval(() => tick(), delta);
     return () => clearInterval(ticker);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text, delta]);
 
   const tick = () => {
@@ -66,15 +67,9 @@ export const Banner = () => {
   return (
     <section className={`banner ${isActive ? 'active' : ''}`} id="home">
       <div className="banner-space-decorations">
-        <div className="banner-star banner-star-1">⭐</div>
-        <div className="banner-star banner-star-2">✨</div>
-        <div className="banner-star banner-star-3">⭐</div>
-        <div className="banner-star banner-star-4">✨</div>
-        <div className="banner-star banner-star-5">⭐</div>
-        <div className="banner-star banner-star-6">✨</div>
-        <div className="banner-planet banner-planet-1">🪐</div>
-        <div className="banner-planet banner-planet-2">🌍</div>
-        <div className="banner-planet banner-planet-3">🌙</div>
+        {["banner-star-1", "banner-star-3", "banner-star-5"].map(c => <div key={c} className={`banner-star ${c}`}>⭐</div>)}
+        {["banner-star-2", "banner-star-4", "banner-star-6"].map(c => <div key={c} className={`banner-star ${c}`}>✨</div>)}
+        {["🪐", "🌍", "🌙"].map((e, idx) => <div key={idx} className={`banner-planet banner-planet-${idx + 1}`}>{e}</div>)}
         <div className="banner-rocket banner-rocket-1"><div className="banner-rocket-spin">🚀</div></div>
         <div className="banner-rocket banner-rocket-2">🛸</div>
         <div className="banner-satellite banner-satellite-1">🛰️</div>
