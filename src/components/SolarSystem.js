@@ -6,11 +6,9 @@ export const SolarSystem = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
 
     const solarSection = document.getElementById('solar-system');
@@ -111,7 +109,7 @@ export const SolarSystem = () => {
   const [selectedPlanet, setSelectedPlanet] = useState(null);
 
   return (
-    <section className="solar-system-section" id="solar-system">
+    <section className={`solar-system-section ${isVisible ? 'active' : ''}`} id="solar-system">
       {/* Cosmic Background */}
       <div className="space-background">
         {/* Stars */}
@@ -227,22 +225,6 @@ export const SolarSystem = () => {
             </div>
           </div>
         )}
-
-        {/* Controls */}
-        {/* <div className={`solar-controls ${isVisible ? 'animate-in' : ''}`}>
-          <h4>🎛️ Solar System Controls</h4>
-          <div className="control-buttons">
-            <button className="control-btn" onClick={() => setSelectedPlanet(null)}>
-              🌌 View All
-            </button>
-            <button className="control-btn" onClick={() => setSelectedPlanet(planets[2])}>
-              🌍 Focus Earth
-            </button>
-            <button className="control-btn" onClick={() => setSelectedPlanet(planets[4])}>
-              🟤 Focus Jupiter
-            </button>
-          </div>
-        </div> */}
       </div>
 
       <style jsx>{`
@@ -280,6 +262,7 @@ export const SolarSystem = () => {
           background: white;
           border-radius: 50%;
           animation: twinkle-space 3s infinite ease-in-out alternate;
+          will-change: transform, opacity;
         }
 
         .star-1 { width: 1px; height: 1px; }
@@ -840,6 +823,10 @@ export const SolarSystem = () => {
           .space-nebula {
             display: none;
           }
+        }
+
+        .solar-system-section:not(.active) * {
+          animation-play-state: paused !important;
         }
       `}</style>
     </section>
