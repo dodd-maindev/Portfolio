@@ -35,33 +35,16 @@ export const Banner = () => {
   const tick = () => {
     const i = loopNum % toRotate.length;
     const fullText = toRotate[i];
-    const updatedText = isDeleting 
-      ? fullText.substring(0, text.length - 1) 
-      : fullText.substring(0, text.length + 1);
-
+    const updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
     setText(updatedText);
-
-    if (isDeleting) {
-      setDelta(100);
-    }
-
-    if (!isDeleting && updatedText === fullText) {
-      setIsDeleting(true);
-      setDelta(period);
-    } else if (isDeleting && updatedText === '') {
-      setIsDeleting(false);
-      setLoopNum(loopNum + 1);
-      setDelta(500);
-    }
+    if (isDeleting) setDelta(100);
+    if (!isDeleting && updatedText === fullText) { setIsDeleting(true); setDelta(period); }
+    else if (isDeleting && updatedText === '') { setIsDeleting(false); setLoopNum(loopNum + 1); setDelta(500); }
   };
 
   const handleDownloadCV = () => {
-    const link = document.createElement('a');
-    link.href = cvPDF;
-    link.download = 'Dao-Duc-Do-CV.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const link = Object.assign(document.createElement('a'), { href: cvPDF, download: 'Dao-Duc-Do-CV.pdf' });
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
   };
 
   return (
@@ -79,21 +62,21 @@ export const Banner = () => {
           <Col xs={12} md={6} xl={7}>
             <div>
               <span className="tagline">Welcome to my Portfolio</span>
-              <h1 style={{ minHeight: '150px' }}>
-                Hi! I'm Meens <span className="txt-rotate"><span className="wrap">{text}</span></span>
-              </h1>
+              <h1 style={{ minHeight: '150px' }}>Hi! I'm Meens <span className="txt-rotate"><span className="wrap">{text}</span></span></h1>
               <p>
-                Hi, My name is <span className="text-purple-400 font-semibold">Đào Đức Độ (MEENS)</span>, I’m a passionate <span className="text-purple-400 font-semibold">Web Developer, Game Developer, and Software Engineer</span>.
+                Hi, My name is <span className="text-purple-400 font-semibold">Đào Đức Độ (MEENS)</span>, I’m a passionate <span className="text-purple-400 font-semibold">Web Developer, Game Developer, and Software Engineer</span> with a strong foundation in full-stack development, game mechanics, and backend systems. I enjoy turning ideas into real-world applications that are both functional and engaging.
+                <br /><br />
+                As a Web Developer, I specialize in crafting dynamic and user-friendly web applications using technologies like React, Node.js, SQL, Mongoose, and tools like Docker and Postman. I’m experienced in building responsive frontends, robust APIs, and scalable databases.
+                <br /><br />
+                In the world of Game Development, I bring stories to life with Unity, leveraging C# and integrating with Python when needed for AI or external logic. I enjoy building both gameplay mechanics and technical systems that enhance the player's experience.
+                <br /><br />
+                As a Software Engineer, I thrive on solving complex problems, optimizing performance, and designing systems that are maintainable and efficient. I'm always eager to learn, explore new technologies, and build meaningful products.
               </p>
-              <button onClick={handleDownloadCV}>
-                Download My CV <ArrowRightCircle size={25} />
-              </button>
+              <button onClick={handleDownloadCV}>Download My CV <ArrowRightCircle size={25} /></button>
             </div>
           </Col>
           <Col xs={0} md={6} xl={5} className="d-none d-md-block">
-            <div>
-              <img src={headerImg} alt="Header Img" />
-            </div>
+            <div><img src={headerImg} alt="Header Img" /></div>
           </Col>
         </Row>
       </Container>
